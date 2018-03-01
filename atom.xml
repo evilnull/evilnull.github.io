@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>evilnull</title>
+  
+  <subtitle>Enjoy coding,enjoy life.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.evilnull.com/"/>
+  <updated>2018-03-01T15:25:37.246Z</updated>
+  <id>http://blog.evilnull.com/</id>
+  
+  <author>
+    <name>evilnull</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>XMAN-level4</title>
+    <link href="http://blog.evilnull.com/2018/03/01/XMAN-level4/"/>
+    <id>http://blog.evilnull.com/2018/03/01/XMAN-level4/</id>
+    <published>2018-03-01T08:00:30.000Z</published>
+    <updated>2018-03-01T15:25:37.246Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;https://www.jarvisoj.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jarvis OJ&lt;/a&gt; 平台上发现的一个 pwn 题目系列：XMAN。&lt;br&gt;本篇介绍 XMAN level4.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/categories/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/categories/PWN/StackOverFlow/"/>
+    
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/tags/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/tags/StackOverFlow/"/>
+    
+      <category term="XMAN" scheme="http://blog.evilnull.com/tags/XMAN/"/>
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+      <category term="Ret2Libc" scheme="http://blog.evilnull.com/tags/Ret2Libc/"/>
+    
+      <category term="ROP" scheme="http://blog.evilnull.com/tags/ROP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XMAN-level3</title>
+    <link href="http://blog.evilnull.com/2018/03/01/XMAN-level3/"/>
+    <id>http://blog.evilnull.com/2018/03/01/XMAN-level3/</id>
+    <published>2018-03-01T06:30:10.000Z</published>
+    <updated>2018-03-01T15:25:47.876Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;https://www.jarvisoj.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jarvis OJ&lt;/a&gt; 平台上发现的一个 pwn 题目系列：XMAN。&lt;br&gt;本篇介绍 XMAN level3.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/categories/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/categories/PWN/StackOverFlow/"/>
+    
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/tags/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/tags/StackOverFlow/"/>
+    
+      <category term="XMAN" scheme="http://blog.evilnull.com/tags/XMAN/"/>
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+      <category term="Ret2Libc" scheme="http://blog.evilnull.com/tags/Ret2Libc/"/>
+    
+      <category term="ROP" scheme="http://blog.evilnull.com/tags/ROP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XMAN-level2</title>
+    <link href="http://blog.evilnull.com/2018/03/01/XMAN-level2/"/>
+    <id>http://blog.evilnull.com/2018/03/01/XMAN-level2/</id>
+    <published>2018-03-01T04:40:20.000Z</published>
+    <updated>2018-03-01T15:17:27.832Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;https://www.jarvisoj.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jarvis OJ&lt;/a&gt; 平台上发现的一个 pwn 题目系列：XMAN。&lt;br&gt;本篇介绍 XMAN level2.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/categories/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/categories/PWN/StackOverFlow/"/>
+    
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/tags/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/tags/StackOverFlow/"/>
+    
+      <category term="XMAN" scheme="http://blog.evilnull.com/tags/XMAN/"/>
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+      <category term="Ret2Libc" scheme="http://blog.evilnull.com/tags/Ret2Libc/"/>
+    
+      <category term="ROP" scheme="http://blog.evilnull.com/tags/ROP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XMAN-level1</title>
+    <link href="http://blog.evilnull.com/2018/03/01/XMAN-level1/"/>
+    <id>http://blog.evilnull.com/2018/03/01/XMAN-level1/</id>
+    <published>2018-03-01T02:49:20.000Z</published>
+    <updated>2018-03-01T15:12:02.028Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;https://www.jarvisoj.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jarvis OJ&lt;/a&gt; 平台上发现的一个 pwn 题目系列：XMAN。&lt;br&gt;本篇介绍 XMAN level1.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/categories/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/categories/PWN/StackOverFlow/"/>
+    
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/tags/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/tags/StackOverFlow/"/>
+    
+      <category term="XMAN" scheme="http://blog.evilnull.com/tags/XMAN/"/>
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XMAN-level0</title>
+    <link href="http://blog.evilnull.com/2018/02/28/XMAN-level0/"/>
+    <id>http://blog.evilnull.com/2018/02/28/XMAN-level0/</id>
+    <published>2018-02-28T12:49:20.000Z</published>
+    <updated>2018-03-01T15:09:41.850Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;https://www.jarvisoj.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jarvis OJ&lt;/a&gt; 平台上发现的一个 pwn 题目系列：XMAN。&lt;br&gt;本篇介绍 XMAN level0.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/categories/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/categories/PWN/StackOverFlow/"/>
+    
+    
+      <category term="PWN" scheme="http://blog.evilnull.com/tags/PWN/"/>
+    
+      <category term="StackOverFlow" scheme="http://blog.evilnull.com/tags/StackOverFlow/"/>
+    
+      <category term="XMAN" scheme="http://blog.evilnull.com/tags/XMAN/"/>
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一次修复Ubuntu UEFI引导过程</title>
+    <link href="http://blog.evilnull.com/2018/02/28/repair-ubuntu-uefi-bootloadr/"/>
+    <id>http://blog.evilnull.com/2018/02/28/repair-ubuntu-uefi-bootloadr/</id>
+    <published>2018-02-28T08:20:39.000Z</published>
+    <updated>2018-02-28T11:14:54.938Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在VMware Workstation中使用UEFI模式安装Ubuntu16.04.3（64bit），安装完成重启后停留在引导界面。从屏幕上显示的信息可以看出没有找到启动项。写这篇文章记录下解决过程。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Misc" scheme="http://blog.evilnull.com/categories/Misc/"/>
+    
+    
+      <category term="Linux" scheme="http://blog.evilnull.com/tags/Linux/"/>
+    
+      <category term="Ubuntu" scheme="http://blog.evilnull.com/tags/Ubuntu/"/>
+    
+      <category term="UEFI" scheme="http://blog.evilnull.com/tags/UEFI/"/>
+    
+      <category term="GRUB" scheme="http://blog.evilnull.com/tags/GRUB/"/>
+    
+  </entry>
+  
+</feed>

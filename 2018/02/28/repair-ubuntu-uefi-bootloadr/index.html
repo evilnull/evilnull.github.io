@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="evilnull">
 <meta property="og:description" content="今天在VMware Workstation中使用UEFI模式安装Ubuntu16.04.3（64bit），安装完成重启后停留在引导界面。从屏幕上显示的信息可以看出没有找到启动项。写这篇文章记录下解决过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-28T11:14:54.938Z">
+<meta property="og:updated_time" content="2018-03-14T15:43:12.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次修复Ubuntu UEFI引导过程">
 <meta name="twitter:description" content="今天在VMware Workstation中使用UEFI模式安装Ubuntu16.04.3（64bit），安装完成重启后停留在引导界面。从屏幕上显示的信息可以看出没有找到启动项。写这篇文章记录下解决过程。">
@@ -393,7 +393,9 @@ sudo mount /dev/sda1 /mnt/boot/efi
 <pre><code>for i in /dev /dev/pts /proc /sys /run; do sudo mount -B $i /mnt$i; done
 </code></pre><h3 id="chroot"><a href="#chroot" class="headerlink" title="chroot"></a>chroot</h3><p>切换系统根目录</p>
 <pre><code>sudo chroot /mnt
-</code></pre><h3 id="修复引导项"><a href="#修复引导项" class="headerlink" title="修复引导项"></a>修复引导项</h3><pre><code>grub-install --target=x86_64-efi --efi-directory=/boot/efi
+</code></pre><h3 id="修复引导项"><a href="#修复引导项" class="headerlink" title="修复引导项"></a>修复引导项</h3><pre><code>apt update
+apt install grub-efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi
 update-grub
 </code></pre><p><code>--target</code> 指定系统结构<br><code>--efi-directory</code> 指定 EFI 分区挂载点</p>
 <p>Grub重新安装后，重启成功。</p>
